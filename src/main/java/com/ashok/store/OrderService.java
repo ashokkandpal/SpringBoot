@@ -1,27 +1,21 @@
 package com.ashok.store;
 
+import com.ashok.store.payment.PaymentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 @Component
 public class OrderService {
-    //private PaymentService paymentService;
+    private final PaymentService paymentService;
 
-    //public OrderService(PaymentService paymentService) {
-     //   this.paymentService = paymentService;
-    //}
-
-    public void placeOrder(){
-        //paymentService.processPayment();
-        System.out.println("Order placed, we received your payment. Thank you");
+    @Autowired
+    public OrderService(@Qualifier("stripePaymentService")PaymentService paymentService) {
+       this.paymentService = paymentService;
     }
 
-    public PaymentService getPaymentService() {
-        return new PaymentService() {
-            @Override
-            public void processPayment() {
-
-            }
-        };
+    public void placeOrder(){
+        paymentService.pay();
+        System.out.println("Order placed, we received your payment. Thank you");
     }
 }

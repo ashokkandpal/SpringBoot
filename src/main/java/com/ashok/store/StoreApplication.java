@@ -15,7 +15,10 @@ public class StoreApplication {
 
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
         OrderService orderService = context.getBean(OrderService.class);
         orderService.placeOrder();
+
+        User user = context.getBean(User.class);
     }
 }
