@@ -1,14 +1,9 @@
 package com.ashok.store;
 
+import com.ashok.store.circularDependency.ClassA;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.core.annotation.Order;
-
-import javax.print.attribute.standard.OrientationRequested;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
 @SpringBootApplication
 public class StoreApplication {
@@ -20,5 +15,12 @@ public class StoreApplication {
         orderService.placeOrder();
 
         User user = context.getBean(User.class);
+
+        // ------Example of Circular Dependency, ClassA needs classB and ClassB needs ClassA, so Spring won't be able to create the bean
+        // ClassA classA = context.getBean(ClassA.class);
+        // classA.getClassB();
+        // EXAMPLE of stack overflow
+        //ClassA classA = context.getBean(ClassA.class);
+        //classA.printObject();
     }
 }

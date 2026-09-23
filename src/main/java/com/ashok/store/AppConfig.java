@@ -10,7 +10,10 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
 
 @Configuration
-@ComponentScan("com.ashok.store")
+@ComponentScan({
+        "com.ashok.store",
+        "com.ashok.store.circularDependency"
+})
 public class AppConfig{
 
     @Bean
